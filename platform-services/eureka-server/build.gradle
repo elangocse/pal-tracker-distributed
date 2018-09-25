@@ -3,26 +3,22 @@ apply plugin: "io.spring.dependency-management"
 
 buildscript {
     ext {
+        springCloudDependenciesVersion = "Edgware.RELEASE"
         springCloudServicesVersion = "1.6.4.RELEASE"
     }
 }
 
 dependencyManagement {
     imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudDependenciesVersion"
         mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:$springCloudServicesVersion"
+        //compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
     }
 }
 
 dependencies {
-    compile project(":components:rest-support")
-
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.cloud:spring-cloud-starter-eureka-server"
 
-    compile "com.zaxxer:HikariCP:2.3.7"
-    compile "mysql:mysql-connector-java:$mysqlVersion"
-    compile "ch.qos.logback:logback-classic:1.1.11"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry"
-
-    testCompile project(":components:test-support")
 }
+
